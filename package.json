@@ -1,0 +1,17 @@
+{
+  "name": "servernodemsal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/msal-node": "^1.17.2",
+    "node-fetch": "^3.3.1"
+  }
+}
