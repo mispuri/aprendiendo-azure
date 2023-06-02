@@ -1,30 +1,12 @@
-import { ConfidentialClientApplication } from '@azure/msal-node';
-import fetch from 'node-fetch';
+import { BlobServiceClient } from '@azure/storage-blob';
+import { DefaultAzureCredential } from '@azure/identity';
 
-const config = {
-  auth: {
-    clientId: '',
-    authority: 'https://login.microsoftonline.com/<tenantId>/',
-    clientSecret: '',
-  },
-};
+const credential = new AzureCliCredential();
 
-const client = new ConfidentialClientApplication(config);
+var client = new BlobServiceClient(
+  'https://sdka.blob.core.windows.net/',
+  credential
+);
 
-const request = {
-  scopes: ['https://graph.microsoft.com/.default'],
-};
-
-let response = await client.acquireTokenByClientCredential(request);
-
-console.dir(response);
-
-let query = await fetch('https://graph.microsoft.com/v1.0/users', {
-  headers: {
-    Authorization: `Bearer ${response.accessToken}`,
-  },
-});
-
-let json = await query.json();
-
-console.dir(json);
+let container = client.getContainerClient('clicontainer');
+await container.createIfNotExists();
